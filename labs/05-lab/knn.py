@@ -21,8 +21,25 @@ class KNN:
         print("error = ", self.get_error(predicted, actual))
 
 # Add the dataset here
+from sklearn import datasets 
+
+d_set = datasets.load_iris()
+
+# print(d_set.keys())
+# print(d_set['data'])
+# print(d_set.data)
+
+
 
 # Split the data 70:30 and predict.
+from sklearn.model_selection import train_test_split
+X= d_set.data
+Y = d_set.target 
+x_train, x_test, y_train, y_test = train_test_split(X,Y, test_size =0.3)
+
+print(X.shape) 
+
+
 
 # create a new object of class KNN
 
