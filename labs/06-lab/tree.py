@@ -46,12 +46,17 @@ class Node:
 def get_prediction(node, example):
     # example is a dictionary which holds the attributes and the
     # values of the attribute (ex. example[’X’] = 0)
+    if node is None:
+        return None
     if node.left is None and node.right is None:
         # leaf node
         return node.vote
     else:
         # your code here
-        return
+        if example[node.attribute] == 0:
+            return get_prediction(node.right, example)
+        if example[node.attribute] == 1:
+            return get_prediction(node.left, example)  
 
 
 class SimpleDecisionTree:
@@ -78,11 +83,16 @@ class SimpleDecisionTree:
 
     def get_majority_vote(self, subset):
         # get the majority vote from a subset of the dataset
-        pass
+        votes = list(map(lambda x: x.vote, subset))
+        if (sum(votes) > (len(votes)/2)):
+            return 1
+        else:
+            return 0
 
 
     def is_pure(data, target_name):
         # returns true if all data has the same target value
+        
         pass
 
     def get_best_attribute(self, data):
@@ -94,8 +104,8 @@ class SimpleDecisionTree:
 
     
     def get_subset(self, data, attr):
-        left = ... # return the rows of the dataset where attribute == 1
-        right = ... # return the rows of the dataset where attribute == 0
+        left = [x for x in data if (x.attribute == 1)] # return the rows of the dataset where attribute == 1
+        right = [x for x in data if (x.attribute == 0)] # return the rows of the dataset where attribute == 0
         return left, right
 
 
